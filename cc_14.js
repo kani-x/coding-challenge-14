@@ -1,5 +1,4 @@
 // Task 2: Adding Support Tickets Dynamically
-
 function createSupportTicket(customerName, issueDescription, priorityLevel) {
     const ticketContainer = document.getElementById("ticketContainer");
   
@@ -26,10 +25,16 @@ function createSupportTicket(customerName, issueDescription, priorityLevel) {
     resolveButton.textContent = "Resolve";
     resolveButton.classList.add("resolveButton");
   
+    // Edit Button
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.classList.add("editButton");
+  
     // Add the elements to the ticket
     ticket.appendChild(name);
     ticket.appendChild(issue);
     ticket.appendChild(priority);
+    ticket.appendChild(editButton);
     ticket.appendChild(resolveButton);
   
     // Append the ticket to the container
@@ -37,100 +42,9 @@ function createSupportTicket(customerName, issueDescription, priorityLevel) {
   
     // Resolve button functionality
     resolveButton.addEventListener("click", function(event) {
-      ticketContainer.removeChild(ticket);
+      event.stopPropagation(); // Prevent event bubbling
+      ticket.remove();
     });
-  }
-  
-  // Example Usage: Adding a new support ticket
-  createSupportTicket("John Doe", "Unable to log in", "High");
-  createSupportTicket("Jane Smith", "Website is down", "Low");
-
-// Task 3: Highlighting High Priority Tickets
-
-function highlightHighPriorityTickets() {
-    const tickets = document.querySelectorAll(".highPriority");
-    
-    Array.from(tickets).forEach(ticket => {
-      ticket.style.backgroundColor = "#ffcccb"; // Change background color
-      ticket.style.border = "2px solid red";   // Add a red border
-    });
-  }
-  
-  // Example usage
-  highlightHighPriorityTickets();
-
-// Task 4: Support Ticket Resolution with Event Bubbling
-
-// Event listener for the "ticketContainer"
-const ticketContainer = document.getElementById("ticketContainer");
-
-ticketContainer.addEventListener("click", function(event) {
-  console.log("A ticket was clicked!");
-}, true);  // Capture phase
-
-function createSupportTicket(customerName, issueDescription, priorityLevel) {
-  const ticket = document.createElement("div");
-  ticket.classList.add("supportTicket");
-
-  const name = document.createElement("h3");
-  name.textContent = customerName;
-
-  const issue = document.createElement("p");
-  issue.textContent = issueDescription;
-
-  const priority = document.createElement("p");
-  priority.textContent = `Priority: ${priorityLevel}`;
-
-  const resolveButton = document.createElement("button");
-  resolveButton.textContent = "Resolve";
-  resolveButton.classList.add("resolveButton");
-
-  resolveButton.addEventListener("click", function(event) {
-    event.stopPropagation(); // Prevent event bubbling
-    ticket.remove();
-  });
-
-  ticket.appendChild(name);
-  ticket.appendChild(issue);
-  ticket.appendChild(priority);
-  ticket.appendChild(resolveButton);
-
-  ticketContainer.appendChild(ticket);
-}
-
-// Example Usage
-createSupportTicket("John Doe", "Unable to log in", "High");
-
-// Task 5: Inline Editing for Support Tickets
-
-function createSupportTicket(customerName, issueDescription, priorityLevel) {
-    const ticket = document.createElement("div");
-    ticket.classList.add("supportTicket");
-  
-    const name = document.createElement("h3");
-    name.textContent = customerName;
-  
-    const issue = document.createElement("p");
-    issue.textContent = issueDescription;
-  
-    const priority = document.createElement("p");
-    priority.textContent = `Priority: ${priorityLevel}`;
-  
-    const editButton = document.createElement("button");
-    editButton.textContent = "Edit";
-    editButton.classList.add("editButton");
-  
-    const resolveButton = document.createElement("button");
-    resolveButton.textContent = "Resolve";
-    resolveButton.classList.add("resolveButton");
-  
-    ticket.appendChild(name);
-    ticket.appendChild(issue);
-    ticket.appendChild(priority);
-    ticket.appendChild(editButton);
-    ticket.appendChild(resolveButton);
-  
-    ticketContainer.appendChild(ticket);
   
     // Edit functionality
     editButton.addEventListener("click", function() {
@@ -151,6 +65,7 @@ function createSupportTicket(customerName, issueDescription, priorityLevel) {
       ticket.replaceChild(priorityInput, priority);
   
       editButton.textContent = "Save";
+  
       editButton.addEventListener("click", function() {
         name.textContent = nameInput.value;
         issue.textContent = issueInput.value;
@@ -163,14 +78,30 @@ function createSupportTicket(customerName, issueDescription, priorityLevel) {
         editButton.textContent = "Edit";
       });
     });
+  }
   
-    // Resolve functionality
-    resolveButton.addEventListener("click", function() {
-      ticket.remove();
+  // Task 3: Highlighting High Priority Tickets
+  function highlightHighPriorityTickets() {
+    const tickets = document.querySelectorAll(".highPriority");
+  
+    Array.from(tickets).forEach(ticket => {
+      ticket.style.backgroundColor = "#ffcccb"; // Change background color
+      ticket.style.border = "2px solid red";   // Add a red border
     });
   }
   
-  // Example Usage
+  // Example usage for dynamically adding tickets
   createSupportTicket("John Doe", "Unable to log in", "High");
   createSupportTicket("Jane Smith", "Website is down", "Low");
+  
+  // Task 4: Support Ticket Resolution with Event Bubbling
+  // Event listener for the "ticketContainer"
+  const ticketContainer = document.getElementById("ticketContainer");
+  
+  ticketContainer.addEventListener("click", function(event) {
+    console.log("A ticket was clicked!");
+  }, true); // Capture phase
+  
+  // Example usage to highlight high priority tickets
+  highlightHighPriorityTickets();
   
