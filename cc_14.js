@@ -58,4 +58,45 @@ function highlightHighPriorityTickets() {
   
   // Example usage
   highlightHighPriorityTickets();
-  
+
+// Task 4: Support Ticket Resolution with Event Bubbling
+
+// Event listener for the "ticketContainer"
+const ticketContainer = document.getElementById("ticketContainer");
+
+ticketContainer.addEventListener("click", function(event) {
+  console.log("A ticket was clicked!");
+}, true);  // Capture phase
+
+function createSupportTicket(customerName, issueDescription, priorityLevel) {
+  const ticket = document.createElement("div");
+  ticket.classList.add("supportTicket");
+
+  const name = document.createElement("h3");
+  name.textContent = customerName;
+
+  const issue = document.createElement("p");
+  issue.textContent = issueDescription;
+
+  const priority = document.createElement("p");
+  priority.textContent = `Priority: ${priorityLevel}`;
+
+  const resolveButton = document.createElement("button");
+  resolveButton.textContent = "Resolve";
+  resolveButton.classList.add("resolveButton");
+
+  resolveButton.addEventListener("click", function(event) {
+    event.stopPropagation(); // Prevent event bubbling
+    ticket.remove();
+  });
+
+  ticket.appendChild(name);
+  ticket.appendChild(issue);
+  ticket.appendChild(priority);
+  ticket.appendChild(resolveButton);
+
+  ticketContainer.appendChild(ticket);
+}
+
+// Example Usage
+createSupportTicket("John Doe", "Unable to log in", "High");
