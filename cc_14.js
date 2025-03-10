@@ -44,4 +44,18 @@ function createSupportTicket(customerName, issueDescription, priorityLevel) {
   // Example Usage: Adding a new support ticket
   createSupportTicket("John Doe", "Unable to log in", "High");
   createSupportTicket("Jane Smith", "Website is down", "Low");
+
+// Task 3: Highlighting High Priority Tickets
+
+function highlightHighPriorityTickets() {
+    const tickets = document.querySelectorAll(".highPriority");
+    
+    Array.from(tickets).forEach(ticket => {
+      ticket.style.backgroundColor = "#ffcccb"; // Change background color
+      ticket.style.border = "2px solid red";   // Add a red border
+    });
+  }
+  
+  // Example usage
+  highlightHighPriorityTickets();
   
