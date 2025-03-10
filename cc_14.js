@@ -100,3 +100,77 @@ function createSupportTicket(customerName, issueDescription, priorityLevel) {
 
 // Example Usage
 createSupportTicket("John Doe", "Unable to log in", "High");
+
+// Task 5: Inline Editing for Support Tickets
+
+function createSupportTicket(customerName, issueDescription, priorityLevel) {
+    const ticket = document.createElement("div");
+    ticket.classList.add("supportTicket");
+  
+    const name = document.createElement("h3");
+    name.textContent = customerName;
+  
+    const issue = document.createElement("p");
+    issue.textContent = issueDescription;
+  
+    const priority = document.createElement("p");
+    priority.textContent = `Priority: ${priorityLevel}`;
+  
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.classList.add("editButton");
+  
+    const resolveButton = document.createElement("button");
+    resolveButton.textContent = "Resolve";
+    resolveButton.classList.add("resolveButton");
+  
+    ticket.appendChild(name);
+    ticket.appendChild(issue);
+    ticket.appendChild(priority);
+    ticket.appendChild(editButton);
+    ticket.appendChild(resolveButton);
+  
+    ticketContainer.appendChild(ticket);
+  
+    // Edit functionality
+    editButton.addEventListener("click", function() {
+      const nameInput = document.createElement("input");
+      nameInput.type = "text";
+      nameInput.value = name.textContent;
+  
+      const issueInput = document.createElement("input");
+      issueInput.type = "text";
+      issueInput.value = issue.textContent;
+  
+      const priorityInput = document.createElement("input");
+      priorityInput.type = "text";
+      priorityInput.value = priority.textContent;
+  
+      ticket.replaceChild(nameInput, name);
+      ticket.replaceChild(issueInput, issue);
+      ticket.replaceChild(priorityInput, priority);
+  
+      editButton.textContent = "Save";
+      editButton.addEventListener("click", function() {
+        name.textContent = nameInput.value;
+        issue.textContent = issueInput.value;
+        priority.textContent = priorityInput.value;
+  
+        ticket.replaceChild(name, nameInput);
+        ticket.replaceChild(issue, issueInput);
+        ticket.replaceChild(priority, priorityInput);
+  
+        editButton.textContent = "Edit";
+      });
+    });
+  
+    // Resolve functionality
+    resolveButton.addEventListener("click", function() {
+      ticket.remove();
+    });
+  }
+  
+  // Example Usage
+  createSupportTicket("John Doe", "Unable to log in", "High");
+  createSupportTicket("Jane Smith", "Website is down", "Low");
+  
